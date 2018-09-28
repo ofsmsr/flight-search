@@ -1,8 +1,8 @@
-<div id="main">
-	<div id="header">
+<div class="main">
+	<div class="header">
 		Flight Search Engine
 	</div>
-	<div id="side-nav">
+	<div class="side-nav">
 		<div class="search">
 			<input type="text" name="originCity" placeholder="Enter Origin City"/>
 			<input type="text" name="destinationCity"  placeholder="Enter Destination City"/>
@@ -11,22 +11,47 @@
 			<input type="number" name="passengerCount" placeholder="Passengers"/>
 			<button>Search</button>
 		</div>
+		<mat-slider
+			class="example-margin"
+			[max]="100"
+			[min]="1"
+			[(ngModel)]="value"
+			[vertical]="vertical">
+		</mat-slider>
 	</div>
-	<div id="side-nav-content">
-		
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
+	<div class="side-nav-content">
+		<div class="journey-path">
+			<div class="path">
+				Pune > Delhi > Pune
+			</div>
+			<div class="details">
+				<div class="">Depart : 1st Jan 2012</div>
+				<div class="">Depart : 10th Jan 2012</div>
+			</div>
+		</div>
+		<div class="s-box">
+			<div class="s-left">
+				<div class="s-amt">Rs. 9.500.00</div>
+				<div class="s-origin">
+					<div class="s-o-f-num">AI-202</div>
+					<div class="s-o-f-path">PNQ > DEL</div>
+					<div class="s-o-f-depart">Depart: 10;00 AM</div>
+					<div class="s-o-f-arrive">Arrive: 12:00 PM</div>
+				</div>
+				<div class="s-return">
+					<div class="s-o-f-num">AI-202</div>
+					<div class="s-o-f-path">PNQ > DEL</div>
+					<div class="s-o-f-depart">Depart: 10;00 AM</div>
+					<div class="s-o-f-arrive">Arrive: 12:00 PM</div>
+				</div>
+			</div>
+			<div class="s-right">
+				<div class="background">
+					<div class="line1"></div>
+					<div class="line2"></div>
+				</div>
+				<button type="button">Book this flight</button>
+			</div>
+		</div>
 	</div>
 </div>

@@ -1,27 +1,27 @@
-#header {
+.header {
     border-bottom: 1px solid black;
     height: 70px;
     width: 100%;
 }
 
-#main {
+.main {
     border: 1px solid black;
     margin: 5% 10%;
 }
 
-#side-nav,
-#side-nav-content {
+.side-nav,
+.side-nav-content {
     display: inline-block;
 }
 
-#side-nav {
+.side-nav {
     border-right: 1px solid black;
-    padding: 2%;
-    width: 30%;
+    padding: 2% 1.5%;
+    width: 29.8%;
 }
 
-#side-nav-content {
-    width: 70%
+.side-nav-content {
+    width: 67.1%
 }
 
 .search {
@@ -41,4 +41,62 @@ input[type=date] {
 input[type="date"]:before {
     content: attr(placeholder) !important;
     margin-right: 0.5em;
+}
+
+.journey-path {
+	border-bottom: 1px solid black;
+	height: 70px;
+}
+
+.path,
+.details {
+	display: inline-block;
+	float: left;
+	position: relative;
+	top: -20px;
+}
+
+.path {
+	width: 70%;
+}
+
+.details {
+	width: 30%;
+}
+
+.s-box {
+	border: 1px solid black;
+	margin: 2%;
+}
+
+.background {
+    background-color: white;
+    width: 100px;
+    height: 50px;
+    padding: 0; 
+    margin: 0;
+    border: 1px solid black;
+}
+.line1 {
+    width: 112px;
+    height: 47px;
+    border-bottom: 1px solid black;
+    -webkit-transform:
+        translateY(-20px)
+        translateX(5px)
+        rotate(27deg); 
+    position: absolute;
+    /* top: -20px; */
+}
+.line2 {
+    width: 112px;
+    height: 47px;
+    border-bottom: 1px solid black;
+    -webkit-transform:
+        translateY(20px)
+        translateX(5px)
+        rotate(-26deg);
+	position: relative;
+	top: -40px;
+	left: -22px;
 }
