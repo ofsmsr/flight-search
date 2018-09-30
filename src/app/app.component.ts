@@ -40,22 +40,23 @@ export class AppComponent implements OnInit {
 		this.flags.isReturnTrip = isReturnTrip;
 	}
 
-	onSearch() {
+	onSearch(searchObj?) {
+		searchObj = searchObj || this.search;
 		this.flags.isSearchTrigger =  true;
 		/* To remove falsy values in search object,
 		* eg: after clear date field, value sets to empty string.
 		*/
-		for (let sKey in this.search) {
-			if (!this.search[sKey]) {
-				delete this.search[sKey];
+		for (let sKey in searchObj) {
+			if (!searchObj[sKey]) {
+				delete searchObj[sKey];
 			}
 
 			// To convert the Origin/Destination city codes into uppercase
 			if (sKey === 'dTo' || sKey === 'dFrom') {
-				this.search[sKey] = this.search[sKey].toUpperCase();
+				searchObj[sKey] = searchObj[sKey].toUpperCase();
 			}
 		}
-		this._flightList = _.filter(this.flightList, this.search);
+		this._flightList = _.filter(this.flightList, searchObj);
 	}
 
 	getShortDate(sDate) {
