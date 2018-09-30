@@ -2,56 +2,82 @@
 	<div class="header">
 		Flight Search Engine
 	</div>
-	<div class="side-nav">
-		<div class="search">
-			<input type="text" name="originCity" placeholder="Enter Origin City"/>
-			<input type="text" name="destinationCity"  placeholder="Enter Destination City"/>
-			<input type="date" name="depatureDate" placeholder="Depature Date"/>
-			<input type="date" name="returnDate" placeholder="Return Date"/>
-			<input type="number" name="passengerCount" placeholder="Passengers"/>
-			<button>Search</button>
+	<div class="disp-flex">
+		<div class="side-nav">
+			<div class="sub-menu">
+				<div class="sm-one-way"
+					(click)="onTypeSelection(false)">
+					One Way
+				</div>
+				<div class="sm-return"
+					(click)="onTypeSelection(true)">
+					Return
+				</div>
+			</div>
+			<form #sForm="ngForm" class="search">
+				<input type="text" [(ngModel)]="search.dFrom" name="originCity" placeholder="Enter Origin City *" required/>
+				<input type="text" [(ngModel)]="search.dTo" name="destinationCity"  placeholder="Enter Destination City *" required/>
+				<input type="date" [(ngModel)]="search.dDate" name="depatureDate" placeholder="Depature Date *" required/>
+				<input type="date" *ngIf="flags.isReturnTrip" [(ngModel)]="search.rDate" name="returnDate" placeholder="Return Date"/>
+				<input type="number" name="passengerCount" placeholder="Passengers"/>
+				<button [disabled]="sForm.invalid"
+					(click)="onSearch()">
+					Search
+				</button>
+				<div class="info">* Fields are mandantory to enable Search Button</div>
+			</form>
+			<div class="s-slider-box">
+				Refine flight search
+				<div class="s-range">
+					<span>0</span>
+					<span class="f-right">10000</span>
+				</div>
+				<mat-slider
+					[max]="10000"
+					[min]="0"
+					[step]="500"
+					[thumbLabel]="true"
+					[tickInterval]="500"
+					[(ngModel)]="search.price"
+					(change)="onSearch()"
+					[vertical]="vertical">
+				</mat-slider>
+			</div>
 		</div>
-		<mat-slider
-			class="example-margin"
-			[max]="100"
-			[min]="1"
-			[(ngModel)]="value"
-			[vertical]="vertical">
-		</mat-slider>
-	</div>
-	<div class="side-nav-content">
-		<div class="journey-path">
-			<div class="path">
-				Pune > Delhi > Pune
-			</div>
-			<div class="details">
-				<div class="">Depart : 1st Jan 2012</div>
-				<div class="">Depart : 10th Jan 2012</div>
-			</div>
-		</div>
-		<div class="s-box">
-			<div class="s-left">
-				<div class="s-amt">Rs. 9.500.00</div>
-				<div class="s-origin">
-					<div class="s-o-f-num">AI-202</div>
-					<div class="s-o-f-path">PNQ > DEL</div>
-					<div class="s-o-f-depart">Depart: 10;00 AM</div>
-					<div class="s-o-f-arrive">Arrive: 12:00 PM</div>
+		<div class="side-nav-content">
+			<div class="journey-path">
+				<div *ngIf="flags.isSearchTrigger" class="path">
+					{{search.dFrom ? search.dFrom + ' >' : ''}} {{search.dTo}} {{(flags.isReturnTrip && search.dFrom) ? '> ' + search.dFrom : ''}}
 				</div>
-				<div class="s-return">
-					<div class="s-o-f-num">AI-202</div>
-					<div class="s-o-f-path">PNQ > DEL</div>
-					<div class="s-o-f-depart">Depart: 10;00 AM</div>
-					<div class="s-o-f-arrive">Arrive: 12:00 PM</div>
+				<div *ngIf="flags.isSearchTrigger" class="details">
+					<div *ngIf="search.dDate">Depart : {{ getShortDate(search.dDate) | date}}</div>
+					<div *ngIf="flags.isReturnTrip && search.rDate">Return : {{getShortDate(search.rDate) | date}}</div>
 				</div>
 			</div>
-			<div class="s-right">
-				<div class="background">
-					<div class="line1"></div>
-					<div class="line2"></div>
+			<div class="s-box disp-flex" *ngFor="let detail of _flightList">
+				<div class="s-left">
+					<div class="f-s-mid">{{detail.price | currency:'INR'}}</div>
+					<div class="s-origin disp-in-block">
+						<div class="f-s-low">{{detail.dFlightNo}}</div>
+						<div>{{detail.dFrom}} > {{detail.dTo}}</div>
+						<div>Depart: {{detail.dDepartTime}}</div>
+						<div>Arrive: {{detail.dArriveTime}}</div>
+					</div>
+					<div *ngIf="flags.isReturnTrip" class="s-return disp-in-block">
+						<div class="f-s-low">{{detail.rFlightNo}}</div>
+						<div>{{detail.rFrom}} > {{detail.rTo}}</div>
+						<div>Depart: {{detail.rDepartTime}}</div>
+						<div>Arrive: {{detail.rArriveTime}}</div>
+					</div>
 				</div>
-				<button type="button">Book this flight</button>
+				<div class="s-right txt-al-center">
+					<div>
+						<img class="s-square" src="assets/square.png"/>
+					</div>
+					<button type="button">Book this flight</button>
+				</div>
 			</div>
+			<div *ngIf="_flightList && !_flightList.length"> No Record(s) Found</div>
 		</div>
 	</div>
 </div>
